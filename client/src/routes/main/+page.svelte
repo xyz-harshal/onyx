@@ -7,9 +7,8 @@
         <div class="hero">
             <div class="hero-content text-center">
                 <div class="max-w-lg">
-                    <h1 class="text-5xl font-bold">
-                        Hyperspectral Anomaly Detection: A Powerful Tool for
-                        Data Analysis
+                    <h1 class="text-5xl font-bold bg-gradient-to-r from-green-500 to-green-700 bg-clip-text text-transparent">
+                        Hyperspectral Anomaly Detection: A Powerful Tool for Data Analysis
                     </h1>
                 </div>
             </div>
@@ -17,10 +16,10 @@
         <div class="flex fex-row gap-4 place-items-end justify-center">
             <input
                 type="file"
-                class="file-input file-input-primary file-input-lg w-full max-w-xs"
+                class="file-input file-input-success file-input-lg w-full max-w-xs"
             />
             <button
-                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-outline btn-primary"
+                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-outline btn-success"
                 >Submit</button
             >
         </div>
@@ -39,65 +38,69 @@
                 <div class="card bg-base-100 w-96 shadow-xl">
                     <figure>
                         <img
-                            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                            src="../src/pictures/img4.png"
                             alt="Shoes"
                         />
                     </figure>
                     <div class="card-body">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
                         <div class="card-actions justify-center">
-                            <button class="btn btn-primary btn-block"
-                                >Upload</button
-                            >
+                            <button class="btn btn-success">Select</button>
                         </div>
                     </div>
                 </div>
                 <div class="card bg-base-100 w-96 shadow-xl">
                     <figure>
                         <img
-                            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                            src="../src/pictures/img2.png"
                             alt="Shoes"
                         />
                     </figure>
                     <div class="card-body">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions justify-end">
-                            <button class="btn btn-primary">Buy Now</button>
+                        <div class="card-actions justify-center">
+                            <button class="btn btn-success">Select</button>
                         </div>
                     </div>
                 </div>
                 <div class="card bg-base-100 w-96 shadow-xl">
                     <figure>
                         <img
-                            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                            src="../src/pictures/img3.png"
                             alt="Shoes"
                         />
                     </figure>
                     <div class="card-body">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions justify-end">
-                            <button class="btn btn-primary">Buy Now</button>
+                        <div class="card-actions justify-center">
+                            <button class="btn btn-success">Select</button>
                         </div>
                     </div>
                 </div>
                 <div class="card bg-base-100 w-96 shadow-xl">
                     <figure>
                         <img
-                            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                            src="../src/pictures/img5.png"
                             alt="Shoes"
                         />
                     </figure>
                     <div class="card-body">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions justify-end">
-                            <button class="btn btn-primary">Buy Now</button>
+                        <div class="card-actions justify-center">
+                            <button class="btn btn-success">Select</button>
                         </div>
                     </div>
                 </div>
+                <div class="card bg-base-100 w-96 shadow-xl">
+                    <figure>
+                        <img
+                            src="../src/pictures/img6.png"
+                            alt="Shoes"
+                        />
+                    </figure>
+                    <div class="card-body">
+                        <div class="card-actions justify-center">
+                            <button class="btn btn-success">Select</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
