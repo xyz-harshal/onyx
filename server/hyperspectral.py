@@ -1,6 +1,8 @@
 import numpy as np
 from scipy import linalg
+import utils
 import scipy.io as sio
+import matplotlib.pyplot as plt
 from sklearn import metrics, decomposition
 
 
@@ -234,22 +236,6 @@ def dic_constr(
 
 
 def result_show(bg_dic, tg_dic, Z, S, E, rows, cols, bands, bg_dic_label, tg_dic_label):
-    """
-
-    :param bg_dic: the background dictionary
-    :param tg_dic: the anomaly dictionary
-    :param Z: the low rank coefficients
-    :param S: the sparse coefficients
-    :param E: the noise
-    :param rows: the number of rows in original hyperpsectral image
-    :param cols: the number of cols in original hypersepctral image
-    :param bands:  the number of bands in original hyperpsectral image
-    :param bg_dic_label:  the index of the atoms in background dictionary
-    :param tg_dic_label: the index of the atoms in anomaly dictionary
-    :return: background2d: the 2D background component
-                target2d : the 2D anomaly component
-
-    """
     background2d = np.dot(bg_dic, Z)
     background3d = utils.hyperconvert3d(background2d, rows, cols, bands)
     target2d = np.dot(tg_dic, S)
@@ -267,29 +253,27 @@ def result_show(bg_dic, tg_dic, Z, S, E, rows, cols, bands, bg_dic_label, tg_dic
     label = label.transpose()
     segm_show = label.reshape(rows, cols)
 
-    plt.figure(1)
-    plt.subplot(2, 3, 1)
-    plt.imshow(background3d.mean(2))
-    plt.xlabel("Background")
-    plt.subplot(2, 3, 2)
-    plt.imshow(target3d.mean(2))
-    plt.xlabel("Anomaly")
-    plt.subplot(2, 3, 3)
-    plt.imshow(noise3d.mean(2))
-    plt.xlabel("Noise")
-    plt.subplot(2, 3, 4)
-    plt.imshow(bg_dic_show)
-    plt.xlabel("Background dictionary")
-    plt.subplot(2, 3, 5)
-    plt.imshow(tg_dic_show)
-    plt.xlabel("Anomaly dictionary")
-    plt.subplot(2, 3, 6)
-    plt.imshow(segm_show)
-    plt.xlabel("Segmentation")
+    images = []
 
-    plt.show()
-    return background2d, target2d
+    def capture_plot(plot_func, title):
+        plt.figure()
+        plot_func()
+        plt.title(title)
+        buffer = BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        img_str = base64.b64encode(buffer.getvalue()).decode()
+        images.append(img_str)
+        plt.close()
 
+    capture_plot(lambda: plt.imshow(background3d.mean(2)), "Background")
+    capture_plot(lambda: plt.imshow(target3d.mean(2)), "Anomaly")
+    capture_plot(lambda: plt.imshow(noise3d.mean(2)), "Noise")
+    capture_plot(lambda: plt.imshow(bg_dic_show), "Background dictionary")
+    capture_plot(lambda: plt.imshow(tg_dic_show), "Anomaly dictionary")
+    capture_plot(lambda: plt.imshow(segm_show), "Segmentation")
+
+    return background2d, target2d, images
 
 def ROC_AUC(target2d, groundtruth):
     """
