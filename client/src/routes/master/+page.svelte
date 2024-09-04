@@ -10,6 +10,30 @@
         "../src/pictures/img6.png",
     ];
     const getImageSrc = (meow: string) => `data:image/png;base64,${meow}`;
+    let images: string[] | null = [];
+    let error: string | null = null;
+    let isLoading = false;
+    let isRightSideHidden = false;
+
+    async function fetchData() {
+        images = [];
+        error = null;
+        isLoading = true;
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/analyse");
+            if (response.ok) {
+                const data = await response.json();
+                images = data.images;
+            } else {
+                error = `Error: ${response.status} ${response.statusText}`;
+            }
+        } catch (err) {
+            error = `Error: ${err.message}`;
+        } finally {
+            isLoading = false;
+        }
+    }
 </script>
 
 <div
@@ -40,22 +64,24 @@
 </div>
 <div class="flex flex-col bg-base-200 items-center px-32">
     <p class="text-5xl font-bold pb-6">Output</p>
-    {#if data}
+    {#if isLoading}
+        <p>Loading Data...</p>
+    {:else if error}
         <div class="flex flex-row flex-wrap gap-6 justify-center">
-            {#each data.images as item}
+            {#each data.images as item, index}
                 <!-- The button to open modal -->
-                <a href="#my_modal_8"
-                    ><img
+                <a href={`#modal_${index}`}>
+                    <img
                         src={getImageSrc(item)}
                         alt=""
                         width="400"
                         height="400"
                         class="rounded-xl"
-                    /></a
-                >
+                    />
+                </a>
 
                 <!-- Put this part before </body> tag -->
-                <div class="modal" role="dialog" id="my_modal_8">
+                <div class="modal" role="dialog" id={`modal_${index}`}>
                     <div class="modal-box">
                         <img
                             src={getImageSrc(item)}
@@ -71,8 +97,39 @@
                 </div>
             {/each}
         </div>
-    {:else}
-        <p class="text-lg">The output images will appear here</p>
+    {:else if images !== null}
+        <div class="images-container">
+            <div class="flex flex-row flex-wrap gap-6 justify-center">
+                {#each images as image}
+                    <a href={`#modal_${image}`}>
+                        <img
+                            src={getImageSrc(image)}
+                            alt=""
+                            width="400"
+                            height="400"
+                            class="rounded-xl"
+                        />
+                    </a>
+
+                    <!-- Put this part before </body> tag -->
+                    <div class="modal" role="dialog" id={`modal_${image}`}>
+                        <div class="modal-box">
+                            <img
+                                src={getImageSrc(image)}
+                                alt=""
+                                width="1000"
+                                height="1000"
+                                class="rounded-xl"
+                            />
+                            <div class="modal-action">
+                                <a href="#" class="btn">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+        <!-- <p class="text-lg">The output images will appear here</p> -->
     {/if}
 </div>
 <div class="bg-base-200 flex flex-col items-center pb-20">
@@ -89,8 +146,9 @@
                 </figure>
                 <div class="card-body items-center text-center">
                     <div class="card-actions">
-                        <button class="btn btn-primary btn-wide text-lg"
-                            >Select</button
+                        <button
+                            class="btn btn-primary btn-wide text-lg"
+                            on:click={fetchData}>Select</button
                         >
                     </div>
                 </div>
