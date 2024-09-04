@@ -7,10 +7,20 @@ import base64
 from io import BytesIO
 from utils import hyperconvert2d, hypernorm, hyperconvert3d, hyperwincreat, Kmeans_win, somp
 from hyperspectral import dic_constr, LRSR, result_show, ROC_AUC
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-@app.post("/analyse")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Allow the origin of your frontend application
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
+
+
+@app.get("/analyse")
 async def analyse_hyperspectral_data():
     try:
         # Load data and preprocess
@@ -61,4 +71,3 @@ async def analyse_hyperspectral_data():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-

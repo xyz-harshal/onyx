@@ -5,6 +5,8 @@ import scipy.io as sio
 import matplotlib.pyplot as plt
 from sklearn import metrics, decomposition
 
+from io import BytesIO
+import base64
 
 def LRSR(DictLRR, DictSRC, data, beta, lmda):
     """
