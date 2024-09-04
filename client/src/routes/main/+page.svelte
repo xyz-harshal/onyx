@@ -2,10 +2,8 @@
     import "../../app.css";
     import { data } from "./data.js";
 
-    // Function to convert base64 image data to image source
     const getImageSrc = (meow) => `data:image/png;base64,${meow}`;
 
-    // Array of image paths
     let img_arr = [
         "../src/pictures/img1.png",
         "../src/pictures/img2.png",
@@ -15,13 +13,12 @@
         "../src/pictures/img6.png",
     ];
 
-    // Array to hold the images
     let images = [];
     let error = null;
     let isLoading = false;
+    let isRightSideHidden = false;
 
     async function fetchData() {
-        // Reset state before fetching new data
         images = [];
         error = null;
         isLoading = true;
@@ -40,12 +37,16 @@
             isLoading = false;
         }
     }
+
+    function toggleRightSide() {
+        isRightSideHidden = !isRightSideHidden;
+    }
 </script>
 
 <div class="flex w-full h-screen">
     <!-- Left side: Hero Section -->
     <div
-        class="w-6/12 bg-cover bg-center relative flex items-center justify-center"
+        class="w-full md:w-6/12 bg-cover bg-center relative flex items-center justify-center"
         style="background-image: url('../src/pictures/earth.avif');"
     >
         <div class="absolute inset-0 bg-black opacity-50"></div>
@@ -61,33 +62,27 @@
                             {#if isLoading}
                                 <p>Loading data...</p>
                             {:else if error}
-                                {#each data as image, index}
-                                    <div
-                                        class="relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
-                                    >
-                                        <img
-                                            src={getImageSrc(image)}
-                                            alt={`Processed Image ${index + 1}`}
-                                            class="w-full h-full object-cover"
-                                        />
-                                        <div
-                                            class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center text-white text-xl opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-100"
-                                        >
-                                            <p>Image {index + 1}</p>
-                                        </div>
-                                    </div>
-                                {/each}
-                            {:else if images !== null}
+                                <p class="text-red-500">{error}</p>
+                            {:else if images.length > 0}
                                 <div class="images-container">
                                     {#each images as image}
-                                        <img
-                                            src={getImageSrc(image)}
-                                            alt="Processed "
-                                        />
+                                        <div
+                                            class="relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
+                                        >
+                                            <img
+                                                src={getImageSrc(image)}
+                                                alt="Processed "
+                                                class="w-full h-full object-cover"
+                                            />
+                                            <div
+                                                class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center text-white text-xl opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-100"
+                                            >
+                                                <p>Image</p>
+                                            </div>
+                                        </div>
                                     {/each}
                                 </div>
-                            {/if}
-                            {#if isLoading == false}
+                            {:else}
                                 Hyperspectral Anomaly Detection: A Powerful Tool
                                 for Data Analysis
                             {/if}
@@ -104,15 +99,24 @@
                 />
                 <button
                     class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-outline btn-success w-full"
+                    >Submit</button
                 >
-                    Submit
+                <button
+                    class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-outline btn-success w-full"
+                    on:click={toggleRightSide}
+                >
+                    {isRightSideHidden ? "Show Examples" : "Hide Examples"}
                 </button>
             </div>
         </div>
     </div>
 
-    <div class=""></div>
-    <div class="card h-screen w-6/12 flex flex-col">
+    <!-- Right side: Examples Section -->
+    <div
+        class="card h-screen w-6/12 flex flex-col {isRightSideHidden
+            ? 'hidden md:flex'
+            : 'flex'}"
+    >
         <h1 class="text-5xl font-bold flex flex-row justify-center mb-6 mt-6">
             Examples
         </h1>
@@ -122,9 +126,7 @@
             >
                 {#each img_arr as img}
                     <div class="card bg-base-100 w-96 shadow-xl">
-                        <figure>
-                            <img src={img} alt="Shoes" />
-                        </figure>
+                        <figure><img src={img} alt="Example" /></figure>
                         <div class="card-body">
                             <div class="card-actions justify-center">
                                 <button
@@ -147,7 +149,7 @@
         gap: 10px;
     }
 
-    img {
+    .images-container img {
         max-width: 200px;
         border: 1px solid #ccc;
         padding: 5px;
