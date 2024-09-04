@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import "../../app.css";
     import { data } from "./data.js";
     let img_arr = [
@@ -9,22 +9,31 @@
         "../src/pictures/img5.png",
         "../src/pictures/img6.png",
     ];
-    const getImageSrc = (meow) => `data:image/png;base64,${meow}`;
+    const getImageSrc = (meow: string) => `data:image/png;base64,${meow}`;
 </script>
 
-<div class="hero bg-base-200 pt-40 pb-18">
+<div
+    style="background-image: url('../src/pictures/earth.avif'); background-size: cover; padding: 20px;"
+    class="hero bg-base-200 pt-28 pb-18"
+>
     <div class="hero-content text-center">
-        <div class="max-w-4xl">
-            <h1 class="text-5xl font-bold">
-                Hyperspectral Anomaly Detection: A Powerful Tool for Data
-                Analysis
-            </h1>
-            <div class="flex flex-col gap-4 my-10 justify-center items-center">
-                <input
-                    type="file"
-                    class="file-input file-input-bordered file-input-primary w-full max-w-xs"
-                />
-                <button class="btn btn-primary btn-wide text-lg">Submit</button>
+        <div class="max-w-6xl">
+            <div>
+                <h1 class="text-5xl font-bold py-32 text-white">
+                    Hyperspectral Anomaly Detection: A Powerful Tool for Data
+                    Analysis
+                </h1>
+                <div
+                    class="flex flex-col gap-4 my-10 justify-center items-center"
+                >
+                    <input
+                        type="file"
+                        class="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                    />
+                    <button class="btn btn-primary btn-wide text-lg"
+                        >Submit</button
+                    >
+                </div>
             </div>
         </div>
     </div>
@@ -66,9 +75,8 @@
         <p class="text-lg">The output images will appear here</p>
     {/if}
 </div>
-
 <div class="bg-base-200 flex flex-col items-center pb-20">
-    <p class="font-bold text-5xl py-12">Examples</p>
+    <p class="font-bold text-5xl py-6">Examples</p>
     <div class="flex flex-row gap-10 mx-32 justify-center flex-wrap">
         {#each img_arr as img}
             <div class="card bg-base-100 w-96 shadow-xl">
