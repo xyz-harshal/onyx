@@ -30,6 +30,9 @@ Onyx is a modular project developed as part of a competitive challenge. It combi
 
 The project addresses a competition challenge that required designing and implementing a system to handle real-world problems. Detailed requirements and the problem statement can be found in our [Google Document](https://docs.google.com/document/d/1AJCe7Qy6B_5BP4XPv5LpJhVADgRhkUsB4A2v-J8uGdA/edit?tab=t.0).
 
+![image](https://github.com/user-attachments/assets/34e8b498-d689-4589-8f27-0948ac979add)
+
+
 Key objectives included:
 - Building a RESTful API using FastAPI.
 - Developing a dynamic client interface using Svelte.
@@ -37,6 +40,7 @@ Key objectives included:
 - Adhering to best practices in code structure and modular design.
 
 ---
+![image](https://github.com/user-attachments/assets/a8ac37be-2f4c-469d-94fc-d06cac38f812)
 
 ## Architecture
 
@@ -51,6 +55,9 @@ Onyx is divided into two main components:
 The clear separation between client and server simplifies both development and future maintenance.
 
 ---
+
+![image](https://github.com/user-attachments/assets/62edb190-c042-4cdd-92ea-bf1d083ad97b)
+
 
 ## Setup and Installation
 
@@ -133,6 +140,7 @@ Refer to the comments within the Svelte files in the `client` directory for more
   Continue to expand this documentation with more detailed guides as the project evolves.
 
 ---
+![image](https://github.com/user-attachments/assets/db29c44f-26fe-45b4-ad33-50334a9b5115)
 
 ## Contributing
 
